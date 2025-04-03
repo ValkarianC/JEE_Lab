@@ -21,7 +21,7 @@ public class MemberService implements MemberServiceInterface {
 
     @Override
     public Member addMember(Member member) {
-        return null;
+        return memberRepository.save(member);
     }
 
     @Override
@@ -45,6 +45,10 @@ public class MemberService implements MemberServiceInterface {
 
     @Override
     public void deleteMemberById(Long ID) {
-
+        Optional<Member> potentialMember = memberRepository.findById(ID);
+        if (potentialMember.isPresent()){
+            memberRepository.deleteById(ID);
+        }
+        throw new ResourceNotFoundException("Member", "ID", ID);
     }
 }
