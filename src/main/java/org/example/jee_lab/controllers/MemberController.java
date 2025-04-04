@@ -46,8 +46,9 @@ public class MemberController {
         Member memberCheck = memberService.getMemberById(ID);
         if (memberCheck.getID() == member.getID()){
             return memberService.updateMember(member);
+        } else {
+            throw new ResourceNotMatchingException("Member", "ID", memberCheck.getID(), member.getID());
         }
-        throw new ResourceNotMatchingException("Member", "ID", memberCheck.getID(), member.getID());
     }
     //DeleteByID
     @DeleteMapping("/deletemember/{id}")
@@ -66,6 +67,6 @@ public class MemberController {
     @PostMapping("/deletememberbyid")
     public String deleteChosenMember(@RequestParam("id")Long ID){
         memberService.deleteMemberById(ID);
-        return "redirect:/deletemember";
+        return "redirect:/admin/deletemember";
     }
 }

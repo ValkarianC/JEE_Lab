@@ -52,7 +52,8 @@ public class MemberService implements MemberServiceInterface {
         Optional<Member> potentialMember = memberRepository.findById(ID);
         if (potentialMember.isPresent()){
             memberRepository.deleteById(ID);
+        } else {
+            throw new ResourceNotFoundException("Member", "ID", ID);
         }
-        throw new ResourceNotFoundException("Member", "ID", ID);
     }
 }

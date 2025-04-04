@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Members</title>
+    <link rel="stylesheet" th:href="@{/normalize.css}">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+    <header class="page_header">
+        <h1>Delete Members</h1>
+    </header>
+    <main class="members_container__outer">
+        <header th:if="${members.size() == 0}" class="members_header">
+            <h3>No Members Found</h3>
+        </header>
+        <header th:unless="${members.size() == 0}" class="members_header">
+            <h3 th:text="${members.size() +  ' members found'}"></h3>
+        </header>
+        <div th:each="member : ${members}" class="members_card">
+            <div class="members_card__info">
+                <h4 th:text="${member.getFirstName() +' '+ member.getLastName()}" class="members_info members_info__name"></h4>
+                <div class="members_info__container">
+                    <p class="members_info info_title id_title">ID :</p>
+                    <p th:text="${member.getID()}" class="members_info info_data id_data"></p>
+                    <p class="members_info info_title address_title">Address :</p>
+                    <div class="info_data address_data">
+                        <p th:text="${member.getAddress().getStreet()}" class="members_info"></p>
+                        <p th:text="${member.getAddress().getPostalCode()}" class="members_info"></p>
+                        <p th:text="${member.getAddress().getCity()}" class="members_info"></p>
+                    </div>
+                    <p class="info_title email_title members_info">E-mail :</p>
+                    <p th:text="${member.getEmail()}" class="info_data email_data members_info"></p>
+                    <p class="info_title phone_title members_info">Phone :</p>
+                    <p th:text="${member.getPhone()}" class="info_data phone_data members_info"></p>
+                    <p class="info_title dob_title members_info">DoB :</p>
+                    <p th:text="${member.getDateOfBirth()}" class="info_data dob_data members_info"></p>
+                </div>
+            </div>
+            <div class="members_card__delete">
+                <form action="./deletememberbyid" method="post">
+                    <input type="hidden" name="id" th:value="${member.ID}">
+                    <button type="submit" class="delete_btn">Delete Member</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
