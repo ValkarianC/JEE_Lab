@@ -8,13 +8,13 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID;
 
-    @Column(length = 40, nullable = false)
+    @Column(length = 40)
     private String street;
 
-    @Column(length = 7, nullable = false)
+    @Column(length = 7)
     private String postalCode;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 20)
     private String city;
 
     public Address() {

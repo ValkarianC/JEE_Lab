@@ -22,22 +22,26 @@ public class MemberController {
 
     //Add
     @PostMapping("/addmember")
+    @ResponseBody
     public Member addNewMember(@RequestBody Member member){
         return memberService.addMember(member);
     }
     //GetAll
     @GetMapping("/members")
+    @ResponseBody
     public List<Member> getAllMembers(){
         return memberService.getAllMembers();
     }
     //GetByID
     @GetMapping("/member/{id}")
+    @ResponseBody
     public Member getMemberById(@PathVariable("id")Long ID){
         return memberService.getMemberById(ID);
     }
     //Update
     //UpdateByID
     @PutMapping("/updatemember/{id}")
+    @ResponseBody
     public Member updateMemberById(@PathVariable("id")Long ID, @RequestBody Member member){
         Member memberCheck = memberService.getMemberById(ID);
         if (memberCheck.getID() == member.getID()){
@@ -47,6 +51,7 @@ public class MemberController {
     }
     //DeleteByID
     @DeleteMapping("/deletemember/{id}")
+    @ResponseBody
     public void deleteMemberById(@PathVariable("id")Long ID){
         memberService.deleteMemberById(ID);
     }

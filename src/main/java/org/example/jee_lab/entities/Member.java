@@ -1,8 +1,10 @@
 package org.example.jee_lab.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.sql.Date;
 
 @Entity
 public class Member {
@@ -15,9 +17,7 @@ public class Member {
     private String lastName;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinTable(name = "member_address",
-            joinColumns = @JoinColumn(name = "member_id"),
-            inverseJoinColumns = @JoinColumn(name = "address_id"))
+    @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
     @Column(length = 60, nullable = false)
@@ -25,19 +25,19 @@ public class Member {
     @Column(length = 15, nullable = true)
     private String phone;
     @Column(length = 10, nullable = false)
-    private LocalDate date;
+    private Date dateOfBirth;
 
     public Member() {
     }
 
-    public Member(long ID, String firstName, String lastName, Address address, String email, String phone, LocalDate date) {
+    public Member(long ID, String firstName, String lastName, Address address, String email, String phone, Date dateOfBirth) {
         this.ID = ID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.email = email;
         this.phone = phone;
-        this.date = date;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public long getID() {
@@ -88,11 +88,11 @@ public class Member {
         this.phone = phone;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
