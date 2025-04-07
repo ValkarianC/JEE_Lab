@@ -1,11 +1,9 @@
 package org.example.jee_lab.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
 import java.sql.Date;
 
 @Entity
@@ -25,7 +23,7 @@ public class Member {
 
     @Column(length = 60, nullable = false)
     private String email;
-    @Column(length = 15, nullable = true)
+    @Column(length = 20, nullable = true)
     private String phone;
     @Column(length = 10, nullable = false)
     private Date dateOfBirth;
