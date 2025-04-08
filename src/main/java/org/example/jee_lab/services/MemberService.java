@@ -1,5 +1,6 @@
 package org.example.jee_lab.services;
 
+import org.example.jee_lab.entities.Address;
 import org.example.jee_lab.entities.Member;
 import org.example.jee_lab.exceptions.IncorrectFormatException;
 import org.example.jee_lab.exceptions.ResourceNotFoundException;
@@ -27,7 +28,12 @@ public class MemberService implements MemberServiceInterface {
     @Override
     public Member addMember(Member member) {
         checkAttributeFormatting(member);
-        member.setAddress(addressRepository.findById(member.getAddress().getID()).get());
+        Optional<Address> tempAddress = addressRepository.findById(member.getAddress().getID());
+        if (tempAddress.isPresent()){
+            member.setAddress(tempAddress.get());
+        } else {
+            throw new ResourceNotFoundException("Address", "ID", member.getAddress().getID());
+        }
         return memberRepository.save(member);
     }
 
@@ -48,7 +54,12 @@ public class MemberService implements MemberServiceInterface {
     @Override
     public Member updateMember(Member member) {
         checkAttributeFormatting(member);
-        member.setAddress(addressRepository.findById(member.getAddress().getID()).get());
+        Optional<Address> tempAddress = addressRepository.findById(member.getAddress().getID());
+        if (tempAddress.isPresent()){
+            member.setAddress(tempAddress.get());
+        } else {
+            throw new ResourceNotFoundException("Address", "ID", member.getAddress().getID());
+        }
         return memberRepository.save(member);
     }
 
