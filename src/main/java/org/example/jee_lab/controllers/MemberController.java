@@ -38,7 +38,6 @@ public class MemberController {
     public Member getMemberById(@PathVariable("id")Long ID){
         return memberService.getMemberById(ID);
     }
-    //Update
     //UpdateByID
     @PutMapping("/updatemember/{id}")
     @ResponseBody

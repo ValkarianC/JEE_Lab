@@ -4,13 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class IncorrectFormatException extends RuntimeException {
+public class IncorrectInputException extends RuntimeException {
     private String resource;
     private String attribute;
     private Object value;
     private String format;
 
-    public IncorrectFormatException(String resource, String attribute, Object value, String format) {
+    public IncorrectInputException(String resource, String attribute, Object value, String format) {
         super(String.format("%s attribute - %s, with value '%s', is formatted incorrectly. Re-enter data with the following format : '%s'", resource, attribute, value, format));
         this.resource = resource;
         this.attribute = attribute;
