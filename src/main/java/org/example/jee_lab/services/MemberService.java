@@ -81,7 +81,7 @@ public class MemberService implements MemberServiceInterface {
         if (member.getFirstName() == null || member.getFirstName().isEmpty()){
             throw new IncorrectInputException("Member", "firstName", member.getFirstName(), "Jane");
         }
-        if (member.getLastName() == null | member.getLastName().isEmpty()){
+        if (member.getLastName() == null || member.getLastName().isEmpty()){
             throw new IncorrectInputException("Member", "lastName", member.getLastName(), "Doe");
         }
         if (member.getEmail() == null || !emailPattern.matcher(member.getEmail()).matches()){
