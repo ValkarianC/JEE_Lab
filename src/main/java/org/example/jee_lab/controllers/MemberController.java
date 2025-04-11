@@ -4,6 +4,8 @@ import org.example.jee_lab.entities.Member;
 import org.example.jee_lab.exceptions.ResourceNotMatchingException;
 import org.example.jee_lab.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +25,8 @@ public class MemberController {
     //Add
     @PostMapping("/addmember")
     @ResponseBody
-    public Member addNewMember(@RequestBody Member member){
-        return memberService.addMember(member);
+    public ResponseEntity<Member> addNewMember(@RequestBody Member member){
+        return new ResponseEntity<>(memberService.addMember(member), HttpStatus.CREATED);
     }
     //GetAll
     @GetMapping("/members")
@@ -41,10 +43,10 @@ public class MemberController {
     //UpdateByID
     @PutMapping("/updatemember/{id}")
     @ResponseBody
-    public Member updateMemberById(@PathVariable("id")Long ID, @RequestBody Member member){
+    public ResponseEntity<Member> updateMemberById(@PathVariable("id")Long ID, @RequestBody Member member){
         Member memberCheck = memberService.getMemberById(ID);
         if (memberCheck.getID() == member.getID()){
-            return memberService.updateMember(member);
+            return new ResponseEntity<>(memberService.updateMember(member), HttpStatus.ACCEPTED);
         } else {
             throw new ResourceNotMatchingException("Member", "ID", memberCheck.getID(), member.getID());
         }
@@ -52,9 +54,11 @@ public class MemberController {
     //DeleteByID
     @DeleteMapping("/deletemember/{id}")
     @ResponseBody
-    public void deleteMemberById(@PathVariable("id")Long ID){
+    public ResponseEntity<String> deleteMemberById(@PathVariable("id")Long ID){
         memberService.deleteMemberById(ID);
+        return new ResponseEntity<>("Member deleted: ID: "+ID, HttpStatus.GONE);
     }
+
     //Show page w/ Thymeleaf
     @GetMapping("/deletemember")
     public String showMemberDeletePage(Model model){
